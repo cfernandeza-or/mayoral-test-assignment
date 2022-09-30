@@ -1,9 +1,17 @@
 import { Button as BaseButton } from "@mui/material";
 import styled from "@emotion/styled";
 
-const CustomButton = styled(BaseButton)({
-    textTransform: 'none',
-});
+import { COLORS } from "utils/constants";
+
+const CustomButton = styled(BaseButton)<{backgroundColor: string; backgroundColorHover: string;}>`
+    text-transform: none;
+    &.MuiButton-contained {
+        background-color: ${(props) => props.backgroundColor};
+        &:hover {
+            background-color: ${(props) => props.backgroundColorHover};
+        }
+    }
+`;
 
 interface ButtonProps {
     className?: string;
@@ -17,6 +25,8 @@ interface ButtonProps {
 
 const Button = ({ className, disabled, endIcon, onClick, startIcon, text, variant }: ButtonProps): JSX.Element => (
     <CustomButton 
+        backgroundColor={COLORS.primaryDark}
+        backgroundColorHover={COLORS.primaryDarken}
         className={className} 
         variant={variant} 
         onClick={onClick} 

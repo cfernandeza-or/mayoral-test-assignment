@@ -5,16 +5,17 @@ import { Product } from "types/data";
 import { getPriceWithOffer, getPriceFormatted } from "utils/helpers";
 import defaultImage from '../../../assets/images/defaultImage.png';
 import Button from "components/Button";
+import { COLORS } from "utils/constants";
 
 interface ProductCardProps {
     product: Product;
 }
 
+
 const Card = styled.div`
     border-radius: 4px;
-    border: 1px solid #84c2f5;
+    border: 1px solid ${(props) => props.theme.borderColor};
     box-shadow: rgba(149, 157, 165, 0.2) 0px 0px 10px;
-    color: #504F4F;
     display: flex;
     flex-direction: column;
     font-size: 14px;
@@ -27,28 +28,35 @@ const Card = styled.div`
         text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-    & > div {
-        > p {
-            margin: 8px 0;
-            text-align: center;
-            &.oldPrice {
-                text-decoration: line-through;
-            }
-            &.newPrice {
-                color: #cc0000;
-            }
+    }    
+`;
+
+const PricesContainer = styled.div`
+    p {
+        margin: 8px 0;
+        text-align: center;
+        &.oldPrice {
+            text-decoration: line-through;
+        }
+        &.newPrice {
+            color: ${(props) => props.theme.color};
         }
     }
+`;
+
+const ButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
     > button {
         width: fit-content;
         &.addButton {
             box-shadow: none;
-            margin: auto auto 0 auto;
+            margin: 0 auto;
         }
-        &.moreColorsButton{
+        &.moreColorsButton {
+            color: ${(props) => props.theme.color};
             margin: 0 auto 8px auto;
-            color: #504F4F;
         }
     }
 `;
@@ -58,29 +66,35 @@ const ImageContainer = styled.div`
     position: relative;
     width: 100%;
     & > span > img {
-        object-fit: contain;
+        object-fit: cover;
     }
 `;
 
+const cardTheme = { borderColor: COLORS.primary, shadowColor: COLORS.shadow };
+const pricesContainerTheme = { color: COLORS.error };
+const ButtonsContainerTheme = { color: COLORS.gray };
+
 const ProductCard = ({ product }: ProductCardProps): JSX.Element => {
     const renderPrices = (): React.ReactElement => (
-        <div>
+        <PricesContainer theme={pricesContainerTheme}>
             {product.offerPercentage ? <>
                 <p className="oldPrice">{getPriceFormatted(product.price)}</p>
                 <p className="newPrice">{getPriceFormatted(getPriceWithOffer(product.price, product.offerPercentage))} {`(${product.offerPercentage}%)`}</p>
             </> : <p>{getPriceFormatted(product.price)}</p>}
-        </div>
+        </PricesContainer>
     )
     
     return (
-        <Card>
+        <Card theme={cardTheme}>
             <ImageContainer>
                 <Image src={product.image} placeholder="blur" blurDataURL={defaultImage?.src} layout="fill"/>
             </ImageContainer>
             <p>{product.name}</p>
             {renderPrices()}
-            {product.moreColors && <Button className="moreColorsButton" text={"más colores"} variant="text" onClick={() => null}/>}
-            <Button className="addButton" text={"AÑADIR"} variant="contained" onClick={() => null}/>
+            <ButtonsContainer theme={ButtonsContainerTheme}>
+                {product.moreColors && <Button className="moreColorsButton" text={"más colores"} variant="text" onClick={() => null}/>}
+                <Button className="addButton" text={"AÑADIR"} variant="contained" onClick={() => null}/>
+            </ButtonsContainer>
         </Card>
     )
 }

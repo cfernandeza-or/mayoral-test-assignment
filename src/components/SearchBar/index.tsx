@@ -1,23 +1,25 @@
 import { useEffect, useState, useRef } from "react";
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 import { InputAdornment, TextField } from "@mui/material";
 import { Search as SearchIcon} from '@mui/icons-material';
+
+import { COLORS } from '../../utils/constants';
 
 interface SearchProps {
     onSearch (content: string): void;
 }
 
-const SearchBarComponent = styled(TextField)`
+const SearchBarComponent = styled(TextField)<{borderColor: string}>`
     & .MuiOutlinedInput-root {
         border-radius: 8px;
         padding-left: 8px;
 
         &:hover fieldset {
-            border-color: #84c2f5;
+            border-color: ${(props) => props.borderColor};
         }
 
         &.Mui-focused fieldset {
-            border-color: #84c2f5;
+            border-color: ${(props) => props.borderColor};
         }
 
         input {
@@ -61,6 +63,7 @@ const SearchBar = ({ onSearch }: SearchProps) => {
     }
     return (
         <SearchBarComponent 
+            borderColor={COLORS.primary}
             variant="outlined" 
             onChange={handleChange} 
             placeholder="Buscar" 

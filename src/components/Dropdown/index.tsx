@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -9,8 +9,9 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+
 import { SortOption } from 'types/data';
-import { DEVICE } from 'utils/constants';
+import { COLORS, DEVICE } from 'utils/constants';
 
 interface DropdownProps {
     options: SortOption[];
@@ -20,8 +21,15 @@ const DropdownContainer = styled.div`
     position: relative;
 
     & .MuiButtonGroup-root {
-        > button:first-of-type {
-            text-transform: none;
+        > button {
+            background-color: ${(props) => props.theme.primaryDark};
+            &:first-of-type {
+                border-color: ${(props) => props.theme.primaryDark};
+                text-transform: none;
+            }
+            &:hover {
+                background-color: ${(props) => props.theme.primaryDarken};
+            }
         }
     }
 
@@ -62,6 +70,8 @@ const DropdownContainer = styled.div`
     }
 `;
 
+const dropdownContainerTheme = { primaryDark: COLORS.primaryDark,  primaryDarken: COLORS.primaryDarken};
+
 const Dropdown = ({ options }: DropdownProps) => {
     const [open, setOpen] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(1);
@@ -90,7 +100,7 @@ const Dropdown = ({ options }: DropdownProps) => {
     };
 
     return (
-        <DropdownContainer>
+        <DropdownContainer theme={dropdownContainerTheme}>
             <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                 <Button onClick={handleClick}>{`Ordenar: ${options[selectedIndex].label}`}</Button>
                 <Button

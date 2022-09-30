@@ -18,3 +18,16 @@ export const DEVICE = {
     desktop: `(max-width: ${WINDOW_SCREEN_SIZE.desktop}px)`,
     desktopL: `(max-width: ${WINDOW_SCREEN_SIZE.desktop}px)`
 };
+
+export const COLORS = {
+    primaryLight: '#A6D1F5',
+    primary: '#84C2F5',
+    primaryDark: '#339df5',
+    primaryDarken: '#0588f5',
+    grayLight: '#e0e0e0',
+    gray: '#888888',
+    grayDark: '#504F4F',
+    black: '#262626',
+    error: '#CC0000',
+    shadow: 'rgb(149 157 165 / 20%)',
+}

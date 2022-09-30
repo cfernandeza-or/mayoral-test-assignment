@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { DEVICE } from "utils/constants";
+import { COLORS, DEVICE } from "utils/constants";
 import { SortOption } from 'types/data';
 import ColumnsController from "./ColumnsController";
 import SearchBar from "components/SearchBar";
@@ -30,7 +30,7 @@ const SearchContainer = styled.div`
     }
 
     @media ${DEVICE.tablet} { 
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid ${(props) => props.theme.borderColor};
         flex-direction: column-reverse;
         max-width: 800px;
         padding-bottom: 32px;
@@ -49,11 +49,13 @@ const DropdownContainer = styled.div`
     width: 100%;
 `;
 
+const searchContainerTheme = { borderColor: COLORS.grayLight };
+
 const ProductsHeader = ({columns, minColumns, maxColumns, sortOptions, onSearch, onChangeColumns}: ProductsHeaderProps): JSX.Element => {
     
     return (
         <div>
-            <SearchContainer>
+            <SearchContainer theme={searchContainerTheme}>
                 <SearchBar onSearch={onSearch}/>
                 <ColumnsController onChangeColumns={onChangeColumns} columns={columns} minColumns={minColumns} maxColumns={maxColumns}/>
             </SearchContainer>
