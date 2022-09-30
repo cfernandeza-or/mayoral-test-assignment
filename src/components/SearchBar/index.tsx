@@ -38,7 +38,6 @@ const SearchBar = ({ onSearch }: SearchProps) => {
     // If both are empty, means is the first render, so avoid onSearch
     useEffect(() => {
         if(text || prevText) {
-            console.warn(text, prevText)
             timeoutRef.current = setTimeout(() => {
                 onSearch(text);
             }, 500);
