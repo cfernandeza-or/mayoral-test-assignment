@@ -3,12 +3,12 @@ import styled from "@emotion/styled";
 
 import { COLORS } from "utils/constants";
 
-const CustomButton = styled(BaseButton)<{backgroundColor: string; backgroundColorHover: string;}>`
+const CustomButton = styled(BaseButton)<{theme: {backgroundColor: string; backgroundColorHover: string;}}>`
     text-transform: none;
     &.MuiButton-contained {
-        background-color: ${(props) => props.backgroundColor};
+        background-color: ${(props) => props.theme.backgroundColor};
         &:hover {
-            background-color: ${(props) => props.backgroundColorHover};
+            background-color: ${(props) => props.theme.backgroundColorHover};
         }
     }
 `;
@@ -23,10 +23,10 @@ interface ButtonProps {
     variant: 'text' | 'contained' | 'outlined';
 }
 
+const CustomButtonTheme = { backgroundColor: COLORS.primaryDark, backgroundColorHover: COLORS.primaryDarken };
 const Button = ({ className, disabled, endIcon, onClick, startIcon, text, variant }: ButtonProps): JSX.Element => (
     <CustomButton 
-        backgroundColor={COLORS.primaryDark}
-        backgroundColorHover={COLORS.primaryDarken}
+        theme={CustomButtonTheme}
         className={className} 
         variant={variant} 
         onClick={onClick} 

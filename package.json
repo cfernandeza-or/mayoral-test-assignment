@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "start-server": "json-server --watch db.json --port 5000"
+
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

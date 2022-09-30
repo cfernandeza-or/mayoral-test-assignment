@@ -1,10 +1,10 @@
 import { Product } from "types/data";
 
 // Normalize string without accents and special characters
-const normalizeString = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+// export const normalizeString = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 // Return true if string1 contains string2 without accents and special characters
-export const isSubStringNormalized = (str1: string, str2: string): boolean => normalizeString(str1).toLowerCase()?.includes(normalizeString(str2)?.toLowerCase());
+// export const isSubStringNormalized = (str1: string, str2: string): boolean => normalizeString(str1).toLowerCase()?.includes(normalizeString(str2)?.toLowerCase());
 
 // Return the price with percentage
 export const getPriceWithOffer = (price: number, percentage: number): number => price - (price * percentage / 100);

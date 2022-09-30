@@ -9,17 +9,17 @@ interface SearchProps {
     onSearch (content: string): void;
 }
 
-const SearchBarComponent = styled(TextField)<{borderColor: string}>`
+const SearchBarComponent = styled(TextField)<{ theme:{ borderColor: string }}>`
     & .MuiOutlinedInput-root {
         border-radius: 8px;
         padding-left: 8px;
 
         &:hover fieldset {
-            border-color: ${(props) => props.borderColor};
+            border-color: ${(props) => props.theme.borderColor};
         }
 
         &.Mui-focused fieldset {
-            border-color: ${(props) => props.borderColor};
+            border-color: ${(props) => props.theme.borderColor};
         }
 
         input {
@@ -28,6 +28,8 @@ const SearchBarComponent = styled(TextField)<{borderColor: string}>`
     }
 `;
     
+const SearchBarTheme = { borderColor: COLORS.primary };
+
 const SearchBar = ({ onSearch }: SearchProps) => {
     const [ text, setText ] = useState('');
     const [ prevText, setPrevText ] = useState('');
@@ -62,7 +64,7 @@ const SearchBar = ({ onSearch }: SearchProps) => {
     }
     return (
         <SearchBarComponent 
-            borderColor={COLORS.primary}
+            theme={SearchBarTheme}
             variant="outlined" 
             onChange={handleChange} 
             placeholder="Buscar" 

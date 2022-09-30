@@ -1,4 +1,4 @@
-import { isSubStringNormalized, sortProductsByPrice } from '../utils/helpers';
+import { sortProductsByPrice } from '../utils/helpers';
 import { Product } from '../types/data';
 
 describe("Sort products by price with sortProductsByPrice", () => {
@@ -34,16 +34,4 @@ describe("Sort products by price with sortProductsByPrice", () => {
     });
 });
 
-
-describe('String A contains string B, no matter special characters', () => {
-    test('String B like String A, without uppercase and special characters', () => {
-        expect(isSubStringNormalized('África', 'africa')).toBeTruthy();
-    });
-    test('String B substring String A', () => {
-        expect(isSubStringNormalized('Ámerica del sur', 'america')).toBeTruthy();
-    });
-    test('String B different than String A', () => {
-        expect(isSubStringNormalized('Ámerica del sur', 'america del norte')).toBeFalsy();
-    });
-});
 

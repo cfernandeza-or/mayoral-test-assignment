@@ -1,13 +1,14 @@
-import { PRODUCTS } from "../db/products";
 import { Product } from "types/data";
-import { isSubStringNormalized } from "../utils/helpers";
 
-// Add 1s delay to simulate a query
+const BASE_PRODUCTS_URL = 'http://localhost:5000/products';
+
 export const getProducts = (): Promise<Product[]> => 
-    new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(PRODUCTS);
-        }, 500);
+    new Promise((resolve, reject) => {
+        fetch(BASE_PRODUCTS_URL, { method: 'GET' })
+            .then((products) => {
+                resolve(products.json());
+            })
+            .catch(reject)
     });
 
 interface FilterProps {
@@ -15,9 +16,10 @@ interface FilterProps {
 }
 
 export const getFilteredProducts = ({ name }: FilterProps): Promise<Product[]> => 
-    new Promise((resolve) => {
-        setTimeout(() => {
-            const filteredProducts = PRODUCTS.filter((product) => isSubStringNormalized(product.name, name)) || [];
-            resolve(filteredProducts);
-        }, 500);
+    new Promise((resolve, reject) => {
+        fetch(`${BASE_PRODUCTS_URL}?name_like=${name}`, { method: 'GET' })
+            .then((products) => {
+                resolve(products.json());
+            })
+            .catch((reject));
     });
