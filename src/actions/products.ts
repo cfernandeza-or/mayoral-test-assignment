@@ -1,12 +1,15 @@
-import { Product } from "types/data";
+import { Product } from "../types/data";
+import axiosClient from "../utils/axios";
 
-const BASE_PRODUCTS_URL = 'http://localhost:5000/products';
+interface GetProductsResponse {
+    data: Product[];
+}
 
 export const getProducts = (): Promise<Product[]> => 
     new Promise((resolve, reject) => {
-        fetch(BASE_PRODUCTS_URL, { method: 'GET' })
-            .then((products) => {
-                resolve(products.json());
+        axiosClient.get('/products')
+            .then((response: GetProductsResponse ) => {
+                resolve(response.data);
             })
             .catch(reject)
     });
@@ -17,9 +20,9 @@ interface FilterProps {
 
 export const getFilteredProducts = ({ name }: FilterProps): Promise<Product[]> => 
     new Promise((resolve, reject) => {
-        fetch(`${BASE_PRODUCTS_URL}?name_like=${name}`, { method: 'GET' })
-            .then((products) => {
-                resolve(products.json());
+        axiosClient.get(`/products?name_like=${name}`)
+            .then((response: GetProductsResponse) => {
+                resolve(response.data);
             })
             .catch((reject));
     });

@@ -23,3 +23,8 @@ Funcionalidad a implementar:
   - Móvil de 3 a 2 elementos
 - Implementar lógica y diseño de un componente “ordenar” (precio ascendente y descendente)
 - Crea los test unitarios que creas conveniente
+
+Iniciar proyecto: 
+- npm i
+- npm run start-server
+- npm run dev
